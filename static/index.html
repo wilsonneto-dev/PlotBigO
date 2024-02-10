@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Plot Equation</title>
+</head>
+<body>
+    <h1>Enter an Equation to Plot</h1>
+    <form id="equationForm" action="#">
+        <input type="text" id="equationInput" name="equation" placeholder="e.g. N*math.log(N,2)">
+        <input type="checkbox" id="persistCheckbox" name="persist" value="true"> <label for="persistCheckbox">Persist Plot</label>
+        <button type="submit">Submit</button>
+    </form>
+    <br>
+    <img id="plotImage" src="" alt="Plot image will appear here">
+
+    <script>
+        function updateImage() {
+            let equation = document.getElementById('equationInput').value;
+            let persist = document.getElementById('persistCheckbox').checked;
+            let encodedEquation = encodeURIComponent(equation);
+            let image = `http://127.0.0.1:8000/plot/${encodedEquation}?add=${persist}`;
+            document.getElementById('plotImage').src = image;
+        }
+
+        document.getElementById('equationForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            updateImage();
+        });
+    </script>
+</body>
+</html>
